@@ -24,6 +24,7 @@ namespace TopTopParser
             openFileDialog.Filter = "Файлы эксель|*.xls;*.xlsx;*.xlsm;*.csv|все файлы|*.*";
             this.goodsApi = new VkGoodsApi();
             this.excelReader = new VkExcelReader();
+            this.elements = new List<ElementOfСlothes>();
         }
 
         private void openFileButton_Click(object sender, EventArgs e)
@@ -75,19 +76,36 @@ namespace TopTopParser
 
         private async void Upload_Click(object sender, EventArgs e)
         {
-            string token = (new VkAccessTokenParser(urlWithTokenTextBox.Text)).Token;
-
-            if (String.IsNullOrEmpty(token))
+            string token = "";
+            try
             {
-                MessageBox.Show("Поле с токеном должно быть заполенно");
+                token = (new VkAccessTokenParser(urlWithTokenTextBox.Text)).Token;
+            }
+            catch(Exception ex)
+            {
+                if (String.IsNullOrEmpty(urlWithTokenTextBox.Text))
+                {
+                    MessageBox.Show("Поле с токеном должно быть заполенно");
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message);
+                }
                 return;
             }
 
-            progressBar.Visible = true;
-            await Task.Run(() => this.goodsApi.LoadGoods(this.elements, token, this.fileName));
-            progressBar.Visible = false;
+            if (this.elements.Count > 0)
+            {
+                progressBar.Visible = true;
+                await Task.Run(() => this.goodsApi.LoadGoods(this.elements, token, this.fileName));
+                progressBar.Visible = false;
 
-            MessageBox.Show("Загрузка прошла успешно");
+                MessageBox.Show("Загрузка прошла успешно");
+            }
+            else
+            {
+                MessageBox.Show("Нет товаров для загрузки");
+            }
         }
 
         private void GetURLWithTokenLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
