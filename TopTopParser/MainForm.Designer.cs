@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Upload = new System.Windows.Forms.Button();
+            this.upload = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.openFileButton = new System.Windows.Forms.Button();
-            this.PathToFileLabel = new System.Windows.Forms.Label();
+            this.pathToFileLabel = new System.Windows.Forms.Label();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.ChargesTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.GetURLWithTokenLabel = new System.Windows.Forms.LinkLabel();
-            this.UrlWithTokenTextBox = new System.Windows.Forms.TextBox();
+            this.chargesTextBox = new System.Windows.Forms.TextBox();
+            this.chargesLabel = new System.Windows.Forms.Label();
+            this.getURLWithTokenLabel = new System.Windows.Forms.LinkLabel();
+            this.urlWithTokenTextBox = new System.Windows.Forms.TextBox();
             this.labelForTextBox = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // Upload
+            // upload
             // 
-            this.Upload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Upload.Location = new System.Drawing.Point(687, 406);
-            this.Upload.Name = "Upload";
-            this.Upload.Size = new System.Drawing.Size(75, 23);
-            this.Upload.TabIndex = 0;
-            this.Upload.Text = "Загрузить";
-            this.Upload.UseVisualStyleBackColor = true;
-            this.Upload.Click += new System.EventHandler(this.Upload_Click);
+            this.upload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.upload.Location = new System.Drawing.Point(687, 406);
+            this.upload.Name = "upload";
+            this.upload.Size = new System.Drawing.Size(75, 23);
+            this.upload.TabIndex = 0;
+            this.upload.Text = "Загрузить";
+            this.upload.UseVisualStyleBackColor = true;
+            this.upload.Click += new System.EventHandler(this.Upload_Click);
             // 
             // openFileDialog
             // 
@@ -67,14 +67,14 @@
             this.openFileButton.UseVisualStyleBackColor = true;
             this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
             // 
-            // PathToFileLabel
+            // pathToFileLabel
             // 
-            this.PathToFileLabel.AutoSize = true;
-            this.PathToFileLabel.Location = new System.Drawing.Point(134, 9);
-            this.PathToFileLabel.Name = "PathToFileLabel";
-            this.PathToFileLabel.Size = new System.Drawing.Size(10, 13);
-            this.PathToFileLabel.TabIndex = 2;
-            this.PathToFileLabel.Text = "-";
+            this.pathToFileLabel.AutoSize = true;
+            this.pathToFileLabel.Location = new System.Drawing.Point(134, 9);
+            this.pathToFileLabel.Name = "pathToFileLabel";
+            this.pathToFileLabel.Size = new System.Drawing.Size(10, 13);
+            this.pathToFileLabel.TabIndex = 2;
+            this.pathToFileLabel.Text = "-";
             // 
             // dataGridView
             // 
@@ -87,41 +87,41 @@
             this.dataGridView.Size = new System.Drawing.Size(750, 332);
             this.dataGridView.TabIndex = 3;
             // 
-            // ChargesTextBox
+            // chargesTextBox
             // 
-            this.ChargesTextBox.Location = new System.Drawing.Point(13, 39);
-            this.ChargesTextBox.Name = "ChargesTextBox";
-            this.ChargesTextBox.Size = new System.Drawing.Size(106, 20);
-            this.ChargesTextBox.TabIndex = 4;
+            this.chargesTextBox.Location = new System.Drawing.Point(13, 39);
+            this.chargesTextBox.Name = "chargesTextBox";
+            this.chargesTextBox.Size = new System.Drawing.Size(106, 20);
+            this.chargesTextBox.TabIndex = 4;
             // 
-            // label1
+            // chargesLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(126, 39);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Накрутка";
+            this.chargesLabel.AutoSize = true;
+            this.chargesLabel.Location = new System.Drawing.Point(126, 39);
+            this.chargesLabel.Name = "chargesLabel";
+            this.chargesLabel.Size = new System.Drawing.Size(55, 13);
+            this.chargesLabel.TabIndex = 5;
+            this.chargesLabel.Text = "Накрутка";
             // 
-            // GetURLWithTokenLabel
+            // getURLWithTokenLabel
             // 
-            this.GetURLWithTokenLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.GetURLWithTokenLabel.AutoSize = true;
-            this.GetURLWithTokenLabel.Location = new System.Drawing.Point(628, 14);
-            this.GetURLWithTokenLabel.Name = "GetURLWithTokenLabel";
-            this.GetURLWithTokenLabel.Size = new System.Drawing.Size(134, 13);
-            this.GetURLWithTokenLabel.TabIndex = 6;
-            this.GetURLWithTokenLabel.TabStop = true;
-            this.GetURLWithTokenLabel.Text = "Получить URL c токеном";
-            this.GetURLWithTokenLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.GetURLWithTokenLabel_LinkClicked);
+            this.getURLWithTokenLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.getURLWithTokenLabel.AutoSize = true;
+            this.getURLWithTokenLabel.Location = new System.Drawing.Point(628, 14);
+            this.getURLWithTokenLabel.Name = "getURLWithTokenLabel";
+            this.getURLWithTokenLabel.Size = new System.Drawing.Size(134, 13);
+            this.getURLWithTokenLabel.TabIndex = 6;
+            this.getURLWithTokenLabel.TabStop = true;
+            this.getURLWithTokenLabel.Text = "Получить URL c токеном";
+            this.getURLWithTokenLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.GetURLWithTokenLabel_LinkClicked);
             // 
-            // UrlWithTokenTextBox
+            // urlWithTokenTextBox
             // 
-            this.UrlWithTokenTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.UrlWithTokenTextBox.Location = new System.Drawing.Point(563, 39);
-            this.UrlWithTokenTextBox.Name = "UrlWithTokenTextBox";
-            this.UrlWithTokenTextBox.Size = new System.Drawing.Size(199, 20);
-            this.UrlWithTokenTextBox.TabIndex = 7;
+            this.urlWithTokenTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.urlWithTokenTextBox.Location = new System.Drawing.Point(563, 39);
+            this.urlWithTokenTextBox.Name = "urlWithTokenTextBox";
+            this.urlWithTokenTextBox.Size = new System.Drawing.Size(199, 20);
+            this.urlWithTokenTextBox.TabIndex = 7;
             // 
             // labelForTextBox
             // 
@@ -150,14 +150,14 @@
             this.ClientSize = new System.Drawing.Size(767, 441);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.labelForTextBox);
-            this.Controls.Add(this.UrlWithTokenTextBox);
-            this.Controls.Add(this.GetURLWithTokenLabel);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.ChargesTextBox);
+            this.Controls.Add(this.urlWithTokenTextBox);
+            this.Controls.Add(this.getURLWithTokenLabel);
+            this.Controls.Add(this.chargesLabel);
+            this.Controls.Add(this.chargesTextBox);
             this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.PathToFileLabel);
+            this.Controls.Add(this.pathToFileLabel);
             this.Controls.Add(this.openFileButton);
-            this.Controls.Add(this.Upload);
+            this.Controls.Add(this.upload);
             this.MinimumSize = new System.Drawing.Size(650, 200);
             this.Name = "MainForm";
             this.Text = "Form1";
@@ -169,15 +169,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Button Upload;
+        private System.Windows.Forms.Button upload;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button openFileButton;
-        private System.Windows.Forms.Label PathToFileLabel;
+        private System.Windows.Forms.Label pathToFileLabel;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.TextBox ChargesTextBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.LinkLabel GetURLWithTokenLabel;
-        private System.Windows.Forms.TextBox UrlWithTokenTextBox;
+        private System.Windows.Forms.TextBox chargesTextBox;
+        private System.Windows.Forms.Label chargesLabel;
+        private System.Windows.Forms.LinkLabel getURLWithTokenLabel;
+        private System.Windows.Forms.TextBox urlWithTokenTextBox;
         private System.Windows.Forms.Label labelForTextBox;
         private System.Windows.Forms.ProgressBar progressBar;
     }

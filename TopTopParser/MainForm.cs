@@ -35,7 +35,7 @@ namespace TopTopParser
                 
             // получаем путь к выбранному файлу
             string pathToFile = openFileDialog.FileName;
-            PathToFileLabel.Text = pathToFile;
+            pathToFileLabel.Text = pathToFile;
             GetListOfClothFromExcel(pathToFile);
 
             this.fileName = Path.GetFileNameWithoutExtension(pathToFile);
@@ -45,7 +45,7 @@ namespace TopTopParser
         {
             progressBar.Visible = true;
 
-            int charge = String.IsNullOrEmpty(ChargesTextBox.Text) ?  -1: Int32.Parse(ChargesTextBox.Text);
+            int charge = String.IsNullOrEmpty(chargesTextBox.Text) ?  -1: Int32.Parse(chargesTextBox.Text);
             
             if (charge >= 0 && charge <= 100)
             {
@@ -73,20 +73,21 @@ namespace TopTopParser
             }
         }
 
-        private void Upload_Click(object sender, EventArgs e)
+        private async void Upload_Click(object sender, EventArgs e)
         {
-            string token = (new VkAccessTokenParser(UrlWithTokenTextBox.Text)).Token;
+            string token = (new VkAccessTokenParser(urlWithTokenTextBox.Text)).Token;
 
-            if (!String.IsNullOrEmpty(token))
-            {
-                this.goodsApi.LoadGoods(this.elements, token, this.fileName);
-                
-                MessageBox.Show("Загрузка прошла успешно");
-            }
-            else
+            if (String.IsNullOrEmpty(token))
             {
                 MessageBox.Show("Поле с токеном должно быть заполенно");
+                return;
             }
+
+            progressBar.Visible = true;
+            await Task.Run(() => this.goodsApi.LoadGoods(this.elements, token, this.fileName));
+            progressBar.Visible = false;
+
+            MessageBox.Show("Загрузка прошла успешно");
         }
 
         private void GetURLWithTokenLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
