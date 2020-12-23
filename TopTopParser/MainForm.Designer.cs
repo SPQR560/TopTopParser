@@ -38,7 +38,6 @@
             this.GetURLWithTokenLabel = new System.Windows.Forms.LinkLabel();
             this.UrlWithTokenTextBox = new System.Windows.Forms.TextBox();
             this.labelForTextBox = new System.Windows.Forms.Label();
-            this.LoadPicturesTextBox = new System.Windows.Forms.CheckBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
@@ -134,18 +133,6 @@
             this.labelForTextBox.TabIndex = 8;
             this.labelForTextBox.Text = "URL с токеном";
             // 
-            // LoadPicturesTextBox
-            // 
-            this.LoadPicturesTextBox.AutoSize = true;
-            this.LoadPicturesTextBox.Checked = true;
-            this.LoadPicturesTextBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.LoadPicturesTextBox.Location = new System.Drawing.Point(187, 41);
-            this.LoadPicturesTextBox.Name = "LoadPicturesTextBox";
-            this.LoadPicturesTextBox.Size = new System.Drawing.Size(128, 17);
-            this.LoadPicturesTextBox.TabIndex = 9;
-            this.LoadPicturesTextBox.Text = "Загрузить картинки";
-            this.LoadPicturesTextBox.UseVisualStyleBackColor = true;
-            // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -156,13 +143,12 @@
             this.progressBar.TabIndex = 10;
             this.progressBar.Visible = false;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(767, 441);
             this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.LoadPicturesTextBox);
             this.Controls.Add(this.labelForTextBox);
             this.Controls.Add(this.UrlWithTokenTextBox);
             this.Controls.Add(this.GetURLWithTokenLabel);
@@ -173,7 +159,7 @@
             this.Controls.Add(this.openFileButton);
             this.Controls.Add(this.Upload);
             this.MinimumSize = new System.Drawing.Size(650, 200);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
@@ -193,7 +179,6 @@
         private System.Windows.Forms.LinkLabel GetURLWithTokenLabel;
         private System.Windows.Forms.TextBox UrlWithTokenTextBox;
         private System.Windows.Forms.Label labelForTextBox;
-        private System.Windows.Forms.CheckBox LoadPicturesTextBox;
         private System.Windows.Forms.ProgressBar progressBar;
     }
 }

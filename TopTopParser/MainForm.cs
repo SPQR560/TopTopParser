@@ -7,6 +7,7 @@ using SocialNetworkAPI.Goods;
 using SocialNetworkAPI.Goods.Api;
 using SocialNetworkAPI.Goods.Service;
 using Model;
+using ExcelReader;
 
 namespace TopTopParser
 {
@@ -15,12 +16,14 @@ namespace TopTopParser
         private List<ElementOfСlothes> elements;
         private string fileName;
         private ISocialNetworkGoodsApi goodsApi;
+        private ExcelReader.ExcelReader excelReader;
 
         public MainForm()
         {
             InitializeComponent();
             openFileDialog.Filter = "Файлы эксель|*.xls;*.xlsx;*.xlsm;*.csv|все файлы|*.*";
             this.goodsApi = new VkGoodsApi();
+            this.excelReader = new VkExcelReader();
         }
 
         private void openFileButton_Click(object sender, EventArgs e)
@@ -43,15 +46,14 @@ namespace TopTopParser
             progressBar.Visible = true;
 
             int charge = String.IsNullOrEmpty(ChargesTextBox.Text) ?  -1: Int32.Parse(ChargesTextBox.Text);
-            bool loadPictures = LoadPicturesTextBox.Checked;
-
+            
             if (charge >= 0 && charge <= 100)
             {
-                elements = await Task.Run(() => ExcelReader.ExcelReader.GetListOfClothFromCSV_File(fileName, charge, loadPictures));
+                elements = await Task.Run(() => excelReader.GetListOfClothFromCSV_File(fileName, charge));
             }
             else
             {
-                elements = await Task.Run(() => ExcelReader.ExcelReader.GetListOfClothFromCSV_File(fileName, 0, loadPictures));
+                elements = await Task.Run(() => excelReader.GetListOfClothFromCSV_File(fileName));
             }
             FillDataGrid(elements);
             progressBar.Visible = false;
@@ -60,15 +62,13 @@ namespace TopTopParser
         public void FillDataGrid(List<ElementOfСlothes> elements)
         {
             dataGridView.DataSource = elements;
-            if (LoadPicturesTextBox.Checked)
+            
+            for (int i = 0; i < dataGridView.Columns.Count; i++)
             {
-                for (int i = 0; i < dataGridView.Columns.Count; i++)
+                if (dataGridView.Columns[i] is DataGridViewImageColumn)
                 {
-                    if (dataGridView.Columns[i] is DataGridViewImageColumn)
-                    {
-                        ((DataGridViewImageColumn)dataGridView.Columns[i]).ImageLayout = DataGridViewImageCellLayout.Stretch;
-                        break;
-                    }
+                    ((DataGridViewImageColumn)dataGridView.Columns[i]).ImageLayout = DataGridViewImageCellLayout.Stretch;
+                    break;
                 }
             }
         }

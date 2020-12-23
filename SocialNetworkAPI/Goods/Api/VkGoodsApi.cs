@@ -7,6 +7,7 @@ using SocialNetworkAPI.Goods.Service;
 using System.Collections.Specialized;
 using Model;
 using Model.Parameters;
+using Model.RowMappers;
 
 namespace SocialNetworkAPI.Goods.Api
 {
@@ -16,14 +17,14 @@ namespace SocialNetworkAPI.Goods.Api
         private string scope;
         private string responseType;
         private string redirectUri;
-        private string apiVerison;
+        private string apiVersion;
         private string groupId;
         private IApiWebClient client;
 
         public VkGoodsApi()
         {
             this.applicationId = VkParameters.APPLICATION_ID;
-            this.apiVerison = VkParameters.API_VERSION;
+            this.apiVersion = VkParameters.API_VERSION;
             this.scope = "groups,market,photos";
             this.responseType = "token";
             this.redirectUri = "https://oauth.vk.com/blank.html";
@@ -53,7 +54,7 @@ namespace SocialNetworkAPI.Goods.Api
                 {"owner_id",  '-' + this.groupId},
                 {"title",  catalogName},
                 {"access_token", token},
-                {"v", apiVerison},
+                {"v", apiVersion},
             });
             
             foreach (ElementOfСlothes element in goods)
@@ -65,7 +66,7 @@ namespace SocialNetworkAPI.Goods.Api
                     {"crop_y",  "5"},
                     {"crop_width",  "400"},
                     {"access_token", token},
-                    {"v", apiVerison},
+                    {"v", apiVersion},
                 });
                 string uploadUrl = uploadServerResponse["response"]["upload_url"].ToString();
 
@@ -89,32 +90,23 @@ namespace SocialNetworkAPI.Goods.Api
                     {"crop_data",  cropData},
                     {"crop_hash",  cropHash},
                     {"access_token", token},
-                    {"v", apiVerison},
+                    {"v", apiVersion},
                 });
                 //если дошло до этой строчки, то response точно не null(сключение выбрасилось при ошибке бы раньше) и можно обращаться по индексу
                 string savedPhotoId = saveMarketPhotoResponse["response"][0]["id"].ToString();
 
 
-                string category = "5003";//детская одежда
-                string description = $"страна:{element.Country} Состав:{element.Сomposition} {element.About} Фото:{element.PathToPicture}";
-              
-                JObject addGoodResponse = client.HttpGet("https://api.vk.com/method/market.add", new NameValueCollection() {
-                    {"owner_id",  '-' + this.groupId},
-                    {"name",  element.Name},
-                    {"description",  description},
-                    {"category_id",  category},
-                    {"price",  element.Cost.ToString()},
-                    {"main_photo_id",  savedPhotoId},
-                    {"access_token", token},
-                    {"v", apiVerison},
-                });
+                string category = "5003";//детская одежда              
+                JObject addGoodResponse = client.HttpGet("https://api.vk.com/method/market.add", 
+                    VkRowMapper.GetSendingItemParametersAsCollection(this.groupId, element, category, savedPhotoId, token, this.apiVersion)
+                );
 
                 client.HttpGet("https://api.vk.com/method/market.addToAlbum", new NameValueCollection() {
                     {"owner_id",  '-' + this.groupId},
                     {"item_id",  addGoodResponse["response"]["market_item_id"].ToString() },
                     {"album_ids",  albumResponse["response"]["market_album_id"].ToString() },
                     {"access_token", token},
-                    {"v", apiVerison},
+                    {"v", apiVersion},
                 });
 
 
