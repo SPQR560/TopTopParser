@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Goods\Api\VkGoodsApiTest.cs" />
+    <Compile Include="Goods\Service\VkApiWebClientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Goods\Service\VkAccessTokenParserTest.cs" />
   </ItemGroup>

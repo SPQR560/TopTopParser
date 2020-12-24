@@ -34,18 +34,16 @@ namespace SocialNetworkAPI.Goods.Api
 
         public bool GetToken()
         {
-            string url = $"https://oauth.vk.com/authorize?client_id={applicationId}&scope={scope}&response_type={responseType}&redirect_uri={redirectUri}";
-
+            string url = client.GetUrl("https://oauth.vk.com/authorize", new NameValueCollection() {
+                {"client_id", applicationId},
+                {"scope", scope},
+                {"response_type", responseType},
+                {"redirect_uri", redirectUri}
+            }); 
+                
             var process = System.Diagnostics.Process.Start(url);
 
-            if (process is null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return process is null ? false : true;
         }
 
         public bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName")

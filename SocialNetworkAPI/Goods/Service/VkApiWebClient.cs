@@ -9,7 +9,7 @@ using System.Web;
 
 namespace SocialNetworkAPI.Goods.Service
 {
-    class VkApiWebClient : IApiWebClient
+    public class VkApiWebClient : IApiWebClient
     {
         private WebClient client; 
 
@@ -26,7 +26,7 @@ namespace SocialNetworkAPI.Goods.Service
         /// <returns></returns>
         public JObject HttpGet(string hostAndPath, NameValueCollection queryData)
         {
-            string url = $"{hostAndPath}{ToQueryString(queryData)}";
+            string url = GetUrl(hostAndPath, queryData);
             
             var response1 = JObject.Parse(client.DownloadString(url));
             if (response1.ContainsKey("error"))
@@ -34,6 +34,11 @@ namespace SocialNetworkAPI.Goods.Service
                 throw new JsonException(response1["error"]["error_msg"].ToString());
             }
             return response1;
+        }
+
+        public string GetUrl(string hostAndPath, NameValueCollection queryData)
+        {
+            return $"{hostAndPath}{ToQueryString(queryData)}";
         }
 
         public JObject UploadFile(string uploadUrl, string filename, string method = "POST")

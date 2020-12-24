@@ -8,5 +8,7 @@ namespace SocialNetworkAPI.Goods
         JObject HttpGet(string hostAndPath, NameValueCollection queryData);
 
         JObject UploadFile(string uploadUrl, string filename, string method);
+
+        string GetUrl(string hostAndPath, NameValueCollection queryData);
     }
 }
