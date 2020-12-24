@@ -48,16 +48,30 @@ namespace SocialNetworkAPI.Goods.Api
 
         public bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName")
         {
-            JObject albumResponse = client.HttpGet("https://api.vk.com/method/market.addAlbum", new NameValueCollection() {
-                {"owner_id",  '-' + this.groupId},
-                {"title",  catalogName},
-                {"access_token", token},
-                {"v", apiVersion},
-            });
-            
+            JObject albumResponse = AddAlbum(catalogName, token);
+
             foreach (ElementOfСlothes element in goods)
             {
-                JObject uploadServerResponse = client.HttpGet("https://api.vk.com/method/photos.getMarketUploadServer", new NameValueCollection() {
+                string savedPhotoId = SendPhotoFromModelToServer(element, token);
+
+                //TODO: сделать нормально
+                string category = "5003";//детская одежда 
+                
+                JObject responseWithAddedItem = client.HttpGet("https://api.vk.com/method/market.add", 
+                    VkRowMapper.GetSendingItemParametersAsCollection(this.groupId, element, category, savedPhotoId, token, this.apiVersion)
+                );
+
+                AddItemToAlbum(responseWithAddedItem, albumResponse, token);
+
+                Thread.Sleep(800);
+            }
+
+            return true;
+        }
+
+        private string SendPhotoFromModelToServer(ElementOfСlothes model, string token)
+        {
+            JObject uploadServerResponse = client.HttpGet("https://api.vk.com/method/photos.getMarketUploadServer", new NameValueCollection() {
                     {"group_id",  this.groupId},
                     {"main_photo",  "1"},
                     {"crop_x",  "5"},
@@ -66,21 +80,21 @@ namespace SocialNetworkAPI.Goods.Api
                     {"access_token", token},
                     {"v", apiVersion},
                 });
-                string uploadUrl = uploadServerResponse["response"]["upload_url"].ToString();
+            string uploadUrl = uploadServerResponse["response"]["upload_url"].ToString();
 
-                //
-                string filename = element.SavePicture();
-                JObject uploadFileResponse= client.UploadFile(uploadUrl, filename, "POST");
-                File.Delete(filename);
-                
+            //
+            string filename = model.SavePicture();
+            JObject uploadFileResponse = client.UploadFile(uploadUrl, filename, "POST");
+            File.Delete(filename);
 
-                String photo = uploadFileResponse["photo"].ToString();
-                String server = uploadFileResponse["server"].ToString();
-                String hash = uploadFileResponse["hash"].ToString();
-                String cropData = uploadFileResponse["crop_data"].ToString();
-                String cropHash = uploadFileResponse["crop_hash"].ToString();
 
-                JObject saveMarketPhotoResponse = client.HttpGet("https://api.vk.com/method/photos.saveMarketPhoto", new NameValueCollection() {
+            String photo = uploadFileResponse["photo"].ToString();
+            String server = uploadFileResponse["server"].ToString();
+            String hash = uploadFileResponse["hash"].ToString();
+            String cropData = uploadFileResponse["crop_data"].ToString();
+            String cropHash = uploadFileResponse["crop_hash"].ToString();
+
+            JObject saveMarketPhotoResponse = client.HttpGet("https://api.vk.com/method/photos.saveMarketPhoto", new NameValueCollection() {
                     {"group_id",  this.groupId},
                     {"photo",  photo},
                     {"server",  server},
@@ -90,28 +104,35 @@ namespace SocialNetworkAPI.Goods.Api
                     {"access_token", token},
                     {"v", apiVersion},
                 });
-                //если дошло до этой строчки, то response точно не null(сключение выбрасилось при ошибке бы раньше) и можно обращаться по индексу
-                string savedPhotoId = saveMarketPhotoResponse["response"][0]["id"].ToString();
+            //если дошло до этой строчки, то response точно не null(сключение выбрасилось при ошибке бы раньше) и можно обращаться по индексу
+            return saveMarketPhotoResponse["response"][0]["id"].ToString();
+        }
 
-
-                string category = "5003";//детская одежда              
-                JObject addGoodResponse = client.HttpGet("https://api.vk.com/method/market.add", 
-                    VkRowMapper.GetSendingItemParametersAsCollection(this.groupId, element, category, savedPhotoId, token, this.apiVersion)
-                );
-
-                client.HttpGet("https://api.vk.com/method/market.addToAlbum", new NameValueCollection() {
+        private void AddItemToAlbum(JObject responseWithAddedItem, JObject albumResponse, string token)
+        {
+            client.HttpGet("https://api.vk.com/method/market.addToAlbum", new NameValueCollection() {
                     {"owner_id",  '-' + this.groupId},
-                    {"item_id",  addGoodResponse["response"]["market_item_id"].ToString() },
+                    {"item_id",  responseWithAddedItem["response"]["market_item_id"].ToString() },
                     {"album_ids",  albumResponse["response"]["market_album_id"].ToString() },
                     {"access_token", token},
                     {"v", apiVersion},
                 });
+        }
 
-
-                Thread.Sleep(800);
-            }
-
-            return true;
+        /// <summary>
+        /// добавляет новый альбом
+        /// </summary>
+        /// <param name="catalogName">имя каталога</param>
+        /// <param name="token">токен доступа</param>
+        /// <returns></returns>
+        private JObject AddAlbum(string catalogName, string token)
+        {
+            return client.HttpGet("https://api.vk.com/method/market.addAlbum", new NameValueCollection() {
+                {"owner_id",  '-' + this.groupId},
+                {"title",  catalogName},
+                {"access_token", token},
+                {"v", apiVersion},
+            });
         }
     }
 }
