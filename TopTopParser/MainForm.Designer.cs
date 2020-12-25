@@ -136,6 +136,7 @@
             // 
             // chooseProductCategoryLabel
             // 
+            this.chooseProductCategoryLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chooseProductCategoryLabel.AutoSize = true;
             this.chooseProductCategoryLabel.Location = new System.Drawing.Point(462, 41);
             this.chooseProductCategoryLabel.Name = "chooseProductCategoryLabel";
