@@ -2,7 +2,7 @@
 using System;
 using SocialNetworkAPI.Goods.Service;
 
-namespace TestNunit.Goods.Service
+namespace Test.Goods.Service
 {
     [TestFixture]
     class VkAccessTokenParserTest

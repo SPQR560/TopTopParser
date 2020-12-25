@@ -2,7 +2,7 @@
 using SocialNetworkAPI.Goods.Service;
 using System.Collections.Specialized;
 
-namespace TestNunit.Goods.Service
+namespace Test.Goods.Service
 {
     [TestFixture]
     class VkApiWebClientTest

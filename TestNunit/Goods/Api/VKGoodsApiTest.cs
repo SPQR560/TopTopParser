@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using SocialNetworkAPI.Goods.Api;
 
-namespace TestNunit.Goods.Api
+namespace Test.Goods.Api
 {
     [TestFixture]
     class VkGoodsApiTest

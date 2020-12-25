@@ -38,6 +38,7 @@
             this.getURLWithTokenLabel = new System.Windows.Forms.LinkLabel();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.productCategoryComboBox = new System.Windows.Forms.ComboBox();
+            this.chooseProductCategoryLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,11 +134,21 @@
             this.productCategoryComboBox.Size = new System.Drawing.Size(131, 21);
             this.productCategoryComboBox.TabIndex = 11;
             // 
+            // chooseProductCategoryLabel
+            // 
+            this.chooseProductCategoryLabel.AutoSize = true;
+            this.chooseProductCategoryLabel.Location = new System.Drawing.Point(462, 41);
+            this.chooseProductCategoryLabel.Name = "chooseProductCategoryLabel";
+            this.chooseProductCategoryLabel.Size = new System.Drawing.Size(163, 13);
+            this.chooseProductCategoryLabel.TabIndex = 12;
+            this.chooseProductCategoryLabel.Text = "Выберете категорию продукта";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(767, 491);
+            this.Controls.Add(this.chooseProductCategoryLabel);
             this.Controls.Add(this.productCategoryComboBox);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.getURLWithTokenLabel);
@@ -168,6 +179,7 @@
         private System.Windows.Forms.LinkLabel getURLWithTokenLabel;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.ComboBox productCategoryComboBox;
+        private System.Windows.Forms.Label chooseProductCategoryLabel;
     }
 }
 
