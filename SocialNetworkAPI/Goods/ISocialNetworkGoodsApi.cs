@@ -7,6 +7,9 @@ namespace SocialNetworkAPI.Goods
     public interface ISocialNetworkGoodsApi
     {
         bool GetToken();
-        bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName");
+
+        bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName", int productCategory = 0);
+
+        List<ProductCategory> GetProductCategories(string token);
     }
 }

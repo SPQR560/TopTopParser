@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ElementOfСlothes.cs" />
     <Compile Include="Parameters\VkParameters.public.cs" />
+    <Compile Include="ProductCategories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Parameters\VkParameters.cs" />
     <Compile Include="RowMappers\VkRowMapper.cs" />

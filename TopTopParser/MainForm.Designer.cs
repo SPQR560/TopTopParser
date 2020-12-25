@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.upload = new System.Windows.Forms.Button();
+            this.uploadButton = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.openFileButton = new System.Windows.Forms.Button();
             this.pathToFileLabel = new System.Windows.Forms.Label();
@@ -36,22 +36,21 @@
             this.chargesTextBox = new System.Windows.Forms.TextBox();
             this.chargesLabel = new System.Windows.Forms.Label();
             this.getURLWithTokenLabel = new System.Windows.Forms.LinkLabel();
-            this.urlWithTokenTextBox = new System.Windows.Forms.TextBox();
-            this.labelForTextBox = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.productCategoryComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // upload
+            // uploadButton
             // 
-            this.upload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.upload.Location = new System.Drawing.Point(687, 406);
-            this.upload.Name = "upload";
-            this.upload.Size = new System.Drawing.Size(75, 23);
-            this.upload.TabIndex = 0;
-            this.upload.Text = "Загрузить";
-            this.upload.UseVisualStyleBackColor = true;
-            this.upload.Click += new System.EventHandler(this.Upload_Click);
+            this.uploadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.uploadButton.Location = new System.Drawing.Point(687, 456);
+            this.uploadButton.Name = "uploadButton";
+            this.uploadButton.Size = new System.Drawing.Size(75, 23);
+            this.uploadButton.TabIndex = 0;
+            this.uploadButton.Text = "Загрузить";
+            this.uploadButton.UseVisualStyleBackColor = true;
+            this.uploadButton.Click += new System.EventHandler(this.UploadButton_Click);
             // 
             // openFileDialog
             // 
@@ -65,7 +64,7 @@
             this.openFileButton.TabIndex = 1;
             this.openFileButton.Text = "Открыть файл";
             this.openFileButton.UseVisualStyleBackColor = true;
-            this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
+            this.openFileButton.Click += new System.EventHandler(this.OpenFileButton_Click);
             // 
             // pathToFileLabel
             // 
@@ -82,9 +81,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(12, 68);
+            this.dataGridView.Location = new System.Drawing.Point(13, 65);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(750, 332);
+            this.dataGridView.Size = new System.Drawing.Size(750, 385);
             this.dataGridView.TabIndex = 3;
             // 
             // chargesTextBox
@@ -115,49 +114,38 @@
             this.getURLWithTokenLabel.Text = "Получить URL c токеном";
             this.getURLWithTokenLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.GetURLWithTokenLabel_LinkClicked);
             // 
-            // urlWithTokenTextBox
-            // 
-            this.urlWithTokenTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.urlWithTokenTextBox.Location = new System.Drawing.Point(563, 39);
-            this.urlWithTokenTextBox.Name = "urlWithTokenTextBox";
-            this.urlWithTokenTextBox.Size = new System.Drawing.Size(199, 20);
-            this.urlWithTokenTextBox.TabIndex = 7;
-            // 
-            // labelForTextBox
-            // 
-            this.labelForTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelForTextBox.AutoSize = true;
-            this.labelForTextBox.Location = new System.Drawing.Point(473, 42);
-            this.labelForTextBox.Name = "labelForTextBox";
-            this.labelForTextBox.Size = new System.Drawing.Size(84, 13);
-            this.labelForTextBox.TabIndex = 8;
-            this.labelForTextBox.Text = "URL с токеном";
-            // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(563, 406);
+            this.progressBar.Location = new System.Drawing.Point(563, 456);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(100, 23);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar.TabIndex = 10;
             this.progressBar.Visible = false;
             // 
+            // productCategoryComboBox
+            // 
+            this.productCategoryComboBox.FormattingEnabled = true;
+            this.productCategoryComboBox.Location = new System.Drawing.Point(631, 38);
+            this.productCategoryComboBox.Name = "productCategoryComboBox";
+            this.productCategoryComboBox.Size = new System.Drawing.Size(131, 21);
+            this.productCategoryComboBox.TabIndex = 11;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(767, 441);
+            this.ClientSize = new System.Drawing.Size(767, 491);
+            this.Controls.Add(this.productCategoryComboBox);
             this.Controls.Add(this.progressBar);
-            this.Controls.Add(this.labelForTextBox);
-            this.Controls.Add(this.urlWithTokenTextBox);
             this.Controls.Add(this.getURLWithTokenLabel);
             this.Controls.Add(this.chargesLabel);
             this.Controls.Add(this.chargesTextBox);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.pathToFileLabel);
             this.Controls.Add(this.openFileButton);
-            this.Controls.Add(this.upload);
+            this.Controls.Add(this.uploadButton);
             this.MinimumSize = new System.Drawing.Size(650, 200);
             this.Name = "MainForm";
             this.Text = "Form1";
@@ -169,7 +157,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button upload;
+        private System.Windows.Forms.Button uploadButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button openFileButton;
         private System.Windows.Forms.Label pathToFileLabel;
@@ -177,9 +165,8 @@
         private System.Windows.Forms.TextBox chargesTextBox;
         private System.Windows.Forms.Label chargesLabel;
         private System.Windows.Forms.LinkLabel getURLWithTokenLabel;
-        private System.Windows.Forms.TextBox urlWithTokenTextBox;
-        private System.Windows.Forms.Label labelForTextBox;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.ComboBox productCategoryComboBox;
     }
 }
 

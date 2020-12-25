@@ -50,7 +50,7 @@ namespace SocialNetworkAPI.Goods.Api
             throw new NotImplementedException();
         }
 
-        public bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName")
+        public bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName", int productCategory = 0)
         {
             //TODO: переписать нормально потом
             //string session_secret_key = $"{token}";
@@ -67,6 +67,11 @@ namespace SocialNetworkAPI.Goods.Api
 
             //WebRequest request = WebRequest.Create($"https://api.ok.ru/fb.do?&application_key={applicationPublicKey}&method=market.addCatalog&permissions={scope}&sig={sig}&access_token={token}");
 
+            throw new NotImplementedException();
+        }
+
+        public List<ProductCategory> GetProductCategories(string token)
+        {
             throw new NotImplementedException();
         }
 

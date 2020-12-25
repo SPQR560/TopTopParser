@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using Model;
 using Model.Parameters;
 using Model.RowMappers;
+using System.Text;
 
 namespace SocialNetworkAPI.Goods.Api
 {
@@ -39,25 +40,23 @@ namespace SocialNetworkAPI.Goods.Api
                 {"scope", scope},
                 {"response_type", responseType},
                 {"redirect_uri", redirectUri}
-            }); 
-                
+            });
+
             var process = System.Diagnostics.Process.Start(url);
 
             return process is null ? false : true;
         }
 
-        public bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName")
+        public bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName", int productCategory = 0)
         {
             JObject albumResponse = AddAlbum(catalogName, token);
+            string category = productCategory.ToString();
 
             foreach (ElementOfСlothes element in goods)
             {
-                string savedPhotoId = SendPhotoFromModelToServer(element, token);
+                string savedPhotoId = SendPhotoFromModelToServer(element, token);              
 
-                //TODO: сделать нормально
-                string category = "5003";//детская одежда 
-                
-                JObject responseWithAddedItem = client.HttpGet("https://api.vk.com/method/market.add", 
+                JObject responseWithAddedItem = client.HttpGet("https://api.vk.com/method/market.add",
                     VkRowMapper.GetSendingItemParametersAsCollection(this.groupId, element, category, savedPhotoId, token, this.apiVersion)
                 );
 
@@ -67,6 +66,30 @@ namespace SocialNetworkAPI.Goods.Api
             }
 
             return true;
+        }
+
+        public List<ProductCategory> GetProductCategories(string token)
+        {
+            List<ProductCategory> productCategories = new List<ProductCategory>();
+
+            JObject categoriesResponse = client.HttpGet("https://api.vk.com/method/market.getCategories", new NameValueCollection() {
+                {"access_token", token},
+                {"v", apiVersion},
+            });
+
+            var items = categoriesResponse["response"]["items"];
+
+            foreach (var item in items)
+            {
+                int id = item["id"].ToObject<int>();
+                string name = ParseStringToUTF8(item["name"].ToString());
+
+                var productCategory = new ProductCategory(id, name);
+
+                productCategories.Add(productCategory);
+            }
+
+            return productCategories;
         }
 
         private string SendPhotoFromModelToServer(ElementOfСlothes model, string token)
@@ -133,6 +156,12 @@ namespace SocialNetworkAPI.Goods.Api
                 {"access_token", token},
                 {"v", apiVersion},
             });
+        }
+
+        private string ParseStringToUTF8(string str)
+        {
+            byte[] bytes = Encoding.Default.GetBytes(str);
+            return Encoding.UTF8.GetString(bytes);
         }
     }
 }

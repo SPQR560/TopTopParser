@@ -17,6 +17,8 @@ namespace TopTopParser
         private string fileName;
         private ISocialNetworkGoodsApi goodsApi;
         private ExcelReader.ExcelReader excelReader;
+        private string token;
+        List<ProductCategory> productCategories;
 
         public MainForm()
         {
@@ -25,9 +27,11 @@ namespace TopTopParser
             this.goodsApi = new VkGoodsApi();
             this.excelReader = new VkExcelReader();
             this.elements = new List<ElementOfСlothes>();
+            this.productCategories = new List<ProductCategory>();
+            this.token = "";
         }
 
-        private void openFileButton_Click(object sender, EventArgs e)
+        private void OpenFileButton_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
             {
@@ -45,6 +49,7 @@ namespace TopTopParser
         public async void GetListOfClothFromExcel(string fileName)
         {
             progressBar.Visible = true;
+            uploadButton.IsAccessible = false;
 
             int charge = String.IsNullOrEmpty(chargesTextBox.Text) ?  -1: Int32.Parse(chargesTextBox.Text);
             
@@ -57,7 +62,9 @@ namespace TopTopParser
                 elements = await Task.Run(() => excelReader.GetListOfClothFromCSV_File(fileName));
             }
             FillDataGrid(elements);
+
             progressBar.Visible = false;
+            uploadButton.IsAccessible = true;
         }
 
         public void FillDataGrid(List<ElementOfСlothes> elements)
@@ -74,30 +81,27 @@ namespace TopTopParser
             }
         }
 
-        private async void Upload_Click(object sender, EventArgs e)
+        private async void UploadButton_Click(object sender, EventArgs e)
         {
-            string token = "";
-            try
+            if (String.IsNullOrEmpty(this.token))
             {
-                token = (new VkAccessTokenParser(urlWithTokenTextBox.Text)).Token;
+                MessageBox.Show("Поле с токеном должно быть заполенно");
+                return;
             }
-            catch(Exception ex)
+            if (productCategoryComboBox.SelectedItem is null)
             {
-                if (String.IsNullOrEmpty(urlWithTokenTextBox.Text))
-                {
-                    MessageBox.Show("Поле с токеном должно быть заполенно");
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                MessageBox.Show("Выберете категорию товара");
                 return;
             }
 
             if (this.elements.Count > 0)
             {
                 progressBar.Visible = true;
-                await Task.Run(() => this.goodsApi.LoadGoods(this.elements, token, this.fileName));
+                string selectedItem = productCategoryComboBox.SelectedItem.ToString();
+                await Task.Run(() => {
+                    ProductCategory category = productCategories.Find(p => p.Name.Equals(selectedItem));
+                    this.goodsApi.LoadGoods(this.elements, this.token, this.fileName, category.Id);
+                });
                 progressBar.Visible = false;
 
                 MessageBox.Show("Загрузка прошла успешно");
@@ -111,6 +115,49 @@ namespace TopTopParser
         private void GetURLWithTokenLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.goodsApi.GetToken();
+
+            using (var tokenForm = new TokenForm())
+            {
+                var result = tokenForm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    this.token = tokenForm.Token;
+                }
+            }
+
+            SetCategoriesToDropBox();
+        }
+
+        private async void SetCategoriesToDropBox()
+        {
+            if (String.IsNullOrEmpty(this.token))
+            {
+                MessageBox.Show("Поле с токеном должно быть заполенно");
+                return;
+            }
+
+            progressBar.Visible = true;
+            uploadButton.IsAccessible = false;
+           
+            int countOfCategories = 0;
+
+            await Task.Run(() =>{
+                productCategories = this.goodsApi.GetProductCategories(this.token);
+                countOfCategories = productCategories.Count;
+            });
+
+            string[] namesOfProducts = new string[countOfCategories];
+
+            await Task.Run(() => {
+                for (int i = 0; i < countOfCategories; i++)
+                {
+                    namesOfProducts[i] = productCategories[i].Name;
+                }
+            });
+
+            productCategoryComboBox.Items.AddRange(namesOfProducts);
+            progressBar.Visible = false;
+            uploadButton.IsAccessible = true;
         }
     }
 }
