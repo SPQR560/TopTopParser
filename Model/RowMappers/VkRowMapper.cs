@@ -10,9 +10,9 @@ namespace Model.RowMappers
 {
     public class VkRowMapper
     {
-        public static ElementOfСlothes ExcelToModelMapper(IExcelDataReader reader, int charge)
+        public static Product ExcelToModelMapper(IExcelDataReader reader, int charge)
         {
-            var elementOfCloth = new ElementOfСlothes()
+            var elementOfCloth = new Product()
             {
                 Name = reader.GetString(0),
                 Color = reader.GetString(2),
@@ -35,7 +35,7 @@ namespace Model.RowMappers
             return elementOfCloth;
         }
 
-        public static NameValueCollection GetSendingItemParametersAsCollection(string groupId, ElementOfСlothes element, string category, string savedPhotoId, string token, string apiVersion)
+        public static NameValueCollection GetSendingItemParametersAsCollection(string groupId, Product element, string category, string savedPhotoId, string token, string apiVersion)
         {
             string description = $"страна:{element.Country} Состав:{element.Сomposition} {element.About} Фото:{element.PathToPicture}";
 

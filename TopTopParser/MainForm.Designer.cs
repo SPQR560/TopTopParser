@@ -126,6 +126,7 @@
             // 
             // productCategoryComboBox
             // 
+            this.productCategoryComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.productCategoryComboBox.FormattingEnabled = true;
             this.productCategoryComboBox.Location = new System.Drawing.Point(631, 38);
             this.productCategoryComboBox.Name = "productCategoryComboBox";

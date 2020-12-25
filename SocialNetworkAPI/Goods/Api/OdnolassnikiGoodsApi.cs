@@ -50,7 +50,7 @@ namespace SocialNetworkAPI.Goods.Api
             throw new NotImplementedException();
         }
 
-        public bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName", int productCategory = 0)
+        public bool LoadGoods(List<Product> goods, string token, string catalogName = "defaultName", int productCategory = 0)
         {
             //TODO: переписать нормально потом
             //string session_secret_key = $"{token}";

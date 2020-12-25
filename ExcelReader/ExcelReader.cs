@@ -14,11 +14,11 @@ namespace ExcelReader
 {
     public abstract class ExcelReader
     {
-        protected abstract ElementOfСlothes GetModel(IExcelDataReader reader, int charge);
+        protected abstract Product GetModel(IExcelDataReader reader, int charge);
 
-        public List<ElementOfСlothes> GetListOfClothFromCSV_File(string pathToExcelFile, int charge = 0)
+        public List<Product> GetListOfClothFromCSV_File(string pathToExcelFile, int charge = 0)
         {
-            var clothesList = new List<ElementOfСlothes>();
+            var clothesList = new List<Product>();
 
             using (var stream = File.Open(pathToExcelFile, FileMode.Open, FileAccess.Read))
             {
@@ -39,7 +39,7 @@ namespace ExcelReader
                                 continue;
                             }
 
-                            ElementOfСlothes elementOfCloth = GetModel(reader, charge);
+                            Product elementOfCloth = GetModel(reader, charge);
 
                             clothesList.Add(elementOfCloth);
                             

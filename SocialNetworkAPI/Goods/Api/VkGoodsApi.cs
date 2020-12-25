@@ -47,12 +47,12 @@ namespace SocialNetworkAPI.Goods.Api
             return process is null ? false : true;
         }
 
-        public bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName", int productCategory = 0)
+        public bool LoadGoods(List<Product> goods, string token, string catalogName = "defaultName", int productCategory = 0)
         {
             JObject albumResponse = AddAlbum(catalogName, token);
             string category = productCategory.ToString();
 
-            foreach (ElementOfСlothes element in goods)
+            foreach (Product element in goods)
             {
                 string savedPhotoId = SendPhotoFromModelToServer(element, token);              
 
@@ -92,7 +92,7 @@ namespace SocialNetworkAPI.Goods.Api
             return productCategories;
         }
 
-        private string SendPhotoFromModelToServer(ElementOfСlothes model, string token)
+        private string SendPhotoFromModelToServer(Product model, string token)
         {
             JObject uploadServerResponse = client.HttpGet("https://api.vk.com/method/photos.getMarketUploadServer", new NameValueCollection() {
                     {"group_id",  this.groupId},

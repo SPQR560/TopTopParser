@@ -11,7 +11,7 @@ namespace ExcelReader
 {
     public class VkExcelReader : ExcelReader
     {
-        protected override ElementOfСlothes GetModel(IExcelDataReader reader, int charge)
+        protected override Product GetModel(IExcelDataReader reader, int charge)
         {
             return VkRowMapper.ExcelToModelMapper(reader, charge);
         }

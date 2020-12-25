@@ -13,7 +13,7 @@ namespace TopTopParser
 {
     public partial class MainForm : Form
     {
-        private List<ElementOfСlothes> elements;
+        private List<Product> elements;
         private string fileName;
         private ISocialNetworkGoodsApi goodsApi;
         private ExcelReader.ExcelReader excelReader;
@@ -26,7 +26,7 @@ namespace TopTopParser
             openFileDialog.Filter = "Файлы эксель|*.xls;*.xlsx;*.xlsm;*.csv|все файлы|*.*";
             this.goodsApi = new VkGoodsApi();
             this.excelReader = new VkExcelReader();
-            this.elements = new List<ElementOfСlothes>();
+            this.elements = new List<Product>();
             this.productCategories = new List<ProductCategory>();
             this.token = "";
         }
@@ -67,7 +67,7 @@ namespace TopTopParser
             uploadButton.IsAccessible = true;
         }
 
-        public void FillDataGrid(List<ElementOfСlothes> elements)
+        public void FillDataGrid(List<Product> elements)
         {
             dataGridView.DataSource = elements;
             

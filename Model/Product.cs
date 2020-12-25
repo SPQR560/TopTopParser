@@ -9,7 +9,7 @@ using System.Drawing.Imaging;
 
 namespace Model
 {
-    public class ElementOfСlothes
+    public class Product
     {
         public string Name { get; set; }
         public int Cost {get; private set;}

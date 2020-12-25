@@ -8,7 +8,7 @@ namespace SocialNetworkAPI.Goods
     {
         bool GetToken();
 
-        bool LoadGoods(List<ElementOfСlothes> goods, string token, string catalogName = "defaultName", int productCategory = 0);
+        bool LoadGoods(List<Product> goods, string token, string catalogName = "defaultName", int productCategory = 0);
 
         List<ProductCategory> GetProductCategories(string token);
     }

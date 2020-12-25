@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ElementOfСlothes.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Parameters\VkParameters.public.cs" />
     <Compile Include="ProductCategories.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
